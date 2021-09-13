@@ -111,9 +111,9 @@ class Roullete():
     resultados = []
     numero = 0
 
-    def __init__(self):
+    def __init__(self, n_resultados):
         print("ruleta inicializada")
-        for i in range(0,10):
+        for i in range(0,n_resultados):
             numero = self.girarRuleta()
             self.resultados.append(numero)
 
@@ -256,8 +256,7 @@ class Jugador():
 
 
 def main():
-    ruleta = Roullete();
-    print(ruleta.resultados)
+    ruleta = Roullete(10)
     usuario = Jugador("Sebastian", 385000)
     print(usuario.getNombre())
     print(usuario.getStack())
