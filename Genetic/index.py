@@ -29,18 +29,17 @@ def main():
     # usuario.evaluar2DocenasStrategy( ruleta, 385000, 10000)
     # ----------------------------
     # GENERACIONES
-    # target = [1,0,0,1,1,0,0,1]
-    # model = genetic.DNA(target = target, mutation_rate = 0.5, n_individuals = 50, n_selection = 10, n_generation = 50, verbose = True)
-    # model.runGeneticAlgorithm()
+    target = [1,0,0,1,1,0,0,1]
+    model = genetic.DNA(target = target, mutation_rate = 0.5, n_individuals = 50, n_selection = 10, n_generation = 50, verbose = True)
+    model.runGeneticAlgorithm()
     # ----------------------------
     # NEURAL
-    # red = neural.NeuralNetwork([3,5], 1)
-    #
-    # print(len(red.layers))
+    # red = neural.NeuralNetwork([3,20], 2)
     # training_inputs = np.array([[0,0,1],
     #                             [1,1,1],
     #                             [1,0,1]])
-    # training_outputs = np.array([[0,1,1]]).T
+    # training_outputs = np.array([[0,1],[1,1],[0,1]])
+    # print(training_outputs)
     #
     # red.train(training_inputs, training_outputs, 1000)
     # print("nuevas sinaptics")

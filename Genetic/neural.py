@@ -82,13 +82,23 @@ class NeuralNetwork():
     def think(self, inputs, layer):
         output = self.sigmoid(np.dot(inputs, layer))
         return output
+
     def thinkNew(self, inputs):
+        inputs = np.array(inputs)
         inputs = inputs.astype(float)
         for i in range(0, len(self.layers)):
             if i == 0:
                 layer = self.think(inputs, self.layers[i])
             else:
                 layer = self.think(layer, self.layers[i])
+        max = sorted(layer)
+        max = max[-1]
+        indexMay = list(layer).index(max)
+        for i in range(len(layer)):
+            if i == indexMay:
+                layer[i] = 1
+            else:
+                layer[i] = 0
         return layer
 
         # l1 = self.think(inputs, self.layer1)

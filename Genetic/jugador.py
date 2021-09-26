@@ -43,6 +43,7 @@ class Jugador():
             return True
         else:
             return False
+
     def evaluar2DocenasStrategy(self, ruleta, stackInit, iteraciones):
         gan = 0
         per = 0

@@ -16,7 +16,7 @@ class Roullete():
         return self.numero
 
     def obtenerResultados(self):
-        return self.resultados
+        return self.resultados[0:20]
 
     def betDocena(self, docena):
         resultado = self.girarRuleta()

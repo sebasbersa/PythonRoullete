@@ -1,6 +1,8 @@
 import numpy as np
 import random
 import neural
+import roulette
+import jugador
 
 class DNA():
     def __init__(self, target, mutation_rate, n_individuals, n_selection, n_generation, verbose = True):
@@ -12,7 +14,8 @@ class DNA():
         self.verbose = verbose
 
     def createIndividual(self, min = 0, max = 9):
-        individual = [np.random.randint(min, max) for i in range(len(self.target))]
+        # individual = [np.random.randint(min, max) for i in range(len(self.target))]
+        individual = neural.NeuralNetwork([20, 50, 50], 2)
         return individual
 
     def createPopulation(self):
@@ -21,9 +24,15 @@ class DNA():
 
     def fitness(self, individual):
         fitness = 0
-        for i in range(len(individual)):
-            if(individual[i] == self.target[i]):
-                fitness += 1
+        jugador1 = jugador.Jugador("sebastian", 50000)
+        ruleta1 = roulette.Roullete(20)
+        while jugador1.getStack() >= 0:
+            resutado = individual.thinkNew(ruleta1.obtenerResultados())
+            print("RESULTADO", resultado)
+            break
+        # for i in range(len(individual)):
+        #     if(individual[i] == self.target[i]):
+        #         fitness += 1
         return fitness
 
     def selection(self, population):
@@ -55,13 +64,20 @@ class DNA():
         return population
 
     def runGeneticAlgorithm(self):
-        population = self.createPopulation()
-        for i in range(self.n_generation):
-            if self.verbose:
-                print ('____________\n')
-                print('Generacion : ', i)
-                print('Poblacion', population)
-                print('\n')
-            selected = self.selection(population)
-            population = self.reproduction(population, selected)
-            population = self.mutation(population)
+        jugador1 = jugador.Jugador("sebastian", 50000)
+        ruleta1 = roulette.Roullete(20)
+        individual = self.createIndividual()
+        resultado = individual.thinkNew(ruleta1.obtenerResultados())
+        print("RESULTADO", resultado)
+
+        #
+        # population = self.createPopulation()
+        # for i in range(self.n_generation):
+        #     if self.verbose:
+        #         print ('____________\n')
+        #         print('Generacion : ', i)
+        #         print('Poblacion', population)
+        #         print('\n')
+        #     selected = self.selection(population)
+        #     population = self.reproduction(population, selected)
+        #     population = self.mutation(population)
