@@ -1,18 +1,16 @@
 import numpy as np
 
 class NeuralNetwork():
-    layers = []
-    hidden_layers = []
     def __init__(self, tam_layers, n_outputs):
+        self.layers = []
+        self.hidden_layers = []
         for i in range(0, len(tam_layers)):
-            if i < len(tam_layers) -1:
+            if i < len(tam_layers) - 1:
                 new_layer = self.createSynapticWeights(tam_layers[i], tam_layers[i+1])
                 self.layers.append(new_layer)
             else:
                 new_layer = self.createSynapticWeights(tam_layers[i], n_outputs)
                 self.layers.append(new_layer)
-        # self.layer1 = self.createSynapticWeights(3,5)
-        # self.layer2 = self.createSynapticWeights(5,1)
 
     def createSynapticWeights(self, entrada, salida):
         return 2 * np.random.random((entrada, salida)) - 1
@@ -55,14 +53,7 @@ class NeuralNetwork():
                     l_error = l_delta.dot(self.layers[-x + 1].T)
                     l_delta = l_error * self.sigmoid_derivative(self.hidden_layers[-x])
                 errors.append(l_error)
-            # l2_error = training_outputs - l2
-            # l2_delta = l2_error * self.sigmoid_derivative(l2)
-            # l1_error = l2_delta.dot(self.layer2.T)
-            # l1_delta = l1_error * self.sigmoid_derivative(l1)
 
-            # Multiply the error by the input and again by the gradient of the Sigmoid curve.
-            # This means less confident weights are adjusted more.
-            # This means inputs, which are zero, do not cause changes to the weights.
             ajustes = []
             for c in range(0, len(errors)):
                 if c == 0:
@@ -71,16 +62,14 @@ class NeuralNetwork():
                     ajuste = np.dot(self.hidden_layers[c-1].T, errors[-(c+1)] * self.sigmoid_derivative(self.hidden_layers[c]))
                 ajustes.append(ajuste)
 
-            # ajustes = np.dot(training_inputs.T, l1_error * self.sigmoid_derivative(l1))
-            # ajustes2 = np.dot(l1.T, l2_error * self.sigmoid_derivative(l2))
 
             for d in range(0, len(ajustes)):
                 self.layers[d] += ajustes[d]
-            # self.layer1 += ajustes
-            # self.layer2 += ajustes2
+
 
     def think(self, inputs, layer):
         output = self.sigmoid(np.dot(inputs, layer))
+        # print(output)
         return output
 
     def thinkNew(self, inputs):
@@ -99,6 +88,7 @@ class NeuralNetwork():
                 layer[i] = 1
             else:
                 layer[i] = 0
+        layer =  list(layer)
         return layer
 
         # l1 = self.think(inputs, self.layer1)

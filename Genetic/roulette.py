@@ -21,13 +21,13 @@ class Roullete():
     def betDocena(self, docena):
         resultado = self.girarRuleta()
         betting = []
-        if(docena == 1):
+        if(docena == 0):
             betting = [3,5,7,12,14,16,21,23,25,30,32,34]
             if(resultado in betting):
                 return True
             else:
                 return False
-        if(docena == 2):
+        if(docena == 1):
             betting = [2,4,8,11,13,17,20,22,26,29,31,35]
             if(resultado in betting):
                 True
@@ -35,19 +35,19 @@ class Roullete():
                 return False
     def bet2Docenas(self, docenas):
         resultado = self.girarRuleta()
-        if(docenas == 1):
+        if(docenas == 0):
             # 2da y 3ra
             if(resultado > 12):
                 return True
             else:
                 return False
-        if(docenas == 2):
+        if(docenas == 1):
             # 1ra y 2da
             if(resultado > 0 and resultado < 25):
                 return True
             else:
                 return False
-        if(docenas == 3):
+        if(docenas == 2):
             # 1ra y 3ra
             if(resultado > 0 and resultado < 13 or resultado > 24 ):
                 return True
