@@ -23,7 +23,7 @@ class Jugador(NeuralNetwork):
         self.stack = self.initStack
         iter = 0
         puntaje = 0
-        while self.getStack() < 770000 and self.getStack() >= 0:
+        while self.getStack() < 770000 and self.getStack() >= 0 and iter < 10000:
             desicion = self.desicion(self.thinkNew(ruleta.obtenerResultados()))
             if desicion == 0:
                 if self.docenaStrategyOnce(ruleta, 0) == True:
@@ -34,14 +34,49 @@ class Jugador(NeuralNetwork):
             elif desicion > 1:
                 if self.bet2DocenasStrategyOnce(ruleta, desicion - 2) == True:
                     puntaje += 1
-            # if(iter % 1000 == 0):
-            #     print(iter)
             iter += 1
         if self.getStack() <= 0:
             return 0
         else:
-            fitness = puntaje / iter
+            fitness = self.getStack()/iter
             return fitness
+
+    def testearRed(self,ruleta, cant):
+        win = 0
+        lose = 0
+        ganado = 0
+        perdido = 0
+        desiciones = []
+        for i in range(cant):
+            self.stack = self.initStack
+            iter = 0
+            puntaje = 0
+            while self.getStack() < 770000 and self.getStack() >= 0 and iter < 5000:
+                desicion = self.desicion(self.thinkNew(ruleta.obtenerResultados()))
+                desiciones.append(desicion)
+                if desicion == 0:
+                    if self.docenaStrategyOnce(ruleta, 0) == True:
+                        puntaje += 1
+                        self.getStack()
+                elif desicion == 1:
+                    if self.docenaStrategyOnce(ruleta, 1) == True:
+                        puntaje += 1
+                        self.getStack()
+                elif desicion > 1:
+                    if self.bet2DocenasStrategyOnce(ruleta, desicion - 2) == True:
+                        puntaje += 1
+                # if(iter % 1000 == 0):
+                #     print(iter)
+                iter += 1
+            if self.getStack() <= 0:
+                perdido = perdido - self.initStack
+                lose +=1
+            else:
+                win += 1
+                ganado = ganado + self.getStack() - self.initStack
+        resultados = ["win", win, "lose", lose, "Diferencia", ganado + perdido, "0", desiciones.count(0), "1", desiciones.count(1),"2", desiciones.count(2),"3", desiciones.count(3),"4", desiciones.count(4)]
+        return resultados
+
 
     def bet2DocenasStrategyOnce(self, ruleta, desicion):
         initBet = 100
@@ -67,6 +102,8 @@ class Jugador(NeuralNetwork):
             if(i > 11):
                 i = 11
             bet = betting[i]
+            if(self.getStack() < bet):
+                bet = self.getStack()
             if self.betDocena(ruleta, desicion, bet) == True:
                 i = 0
             else:

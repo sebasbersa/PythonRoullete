@@ -16,8 +16,8 @@ class DNA():
 
     def createIndividual(self, numero):
         nombre = "Jugador " + str(numero)
-        tam_layers = [20, 50,50]
-        return Jugador(nombre, 50000, tam_layers, 5)
+        tam_layers = [20, 10,10]
+        return Jugador(nombre, 385000, tam_layers, 5)
 
     def createPopulation(self):
         population = [self.createIndividual(i) for i in range(self.n_individuals)]
@@ -44,11 +44,9 @@ class DNA():
                 layer_2.append(layers_segundo[i][b])
         layer_1 = layer_1[0]
         layer_2 = layer_2[0]
-        layer_1_normalized = [i / 100  for i in layer_1]
-        layer_2_normalized = [i / 100  for i in layer_2]
         difference=[]
-        for i in range(len(layer_2_normalized)):
-            difference.append(layer_2_normalized[i] - layer_1_normalized[i])
+        for i in range(len(layer_2)):
+            difference.append(layer_2[i] - layer_1[i])
         variation_rate = sum(difference)/len(difference)
         return abs(variation_rate)
 
@@ -102,11 +100,17 @@ class DNA():
 
     def runGeneticAlgorithm(self):
         ruleta = Roullete(20)
-        population = self.createPopulation()
-        selected = self.selection(population, ruleta)
-        population = self.reproduction(population, selected)
-        population = self.mutation(population)
-        print(len(population[0].layers[0]), len(population[0].layers[1]), len(population[0].layers[2]))
+        for i in range(self.n_generation):
+            population = self.createPopulation()
+            selected = self.selection(population, ruleta)
+            population = self.reproduction(population, selected)
+            population = self.mutation(population)
+            ruleta1 = Roullete(20)
+            print("Resultado generacion: ", i)
+            newResultados = population[0].testearRed(ruleta1, 10)
+            print(newResultados)
+
+
 
         # resultado = population[0].thinkNew(ruleta1.obtenerResultados())
         # print("RESULTADO", resultado)

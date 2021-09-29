@@ -7,8 +7,7 @@ class Roullete():
     def __init__(self, n_resultados):
         print("ruleta inicializada")
         for i in range(0,n_resultados):
-            numero = self.girarRuleta()
-            self.resultados.append(numero)
+            self.girarRuleta()
 
     def girarRuleta(self):
         self.numero = random.randint(0,36)
@@ -16,13 +15,15 @@ class Roullete():
         return self.numero
 
     def obtenerResultados(self):
-        return self.resultados[0:20]
+        results = self.resultados
+        if len(results) > 20:
+            results = results[-21:-1]
+        return results
 
     def betDocena(self, docena):
         resultado = self.girarRuleta()
         betting = []
         if(docena == 0):
-            betting = [3,5,7,12,14,16,21,23,25,30,32,34]
             if(resultado in betting):
                 return True
             else:

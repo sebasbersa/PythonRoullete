@@ -30,7 +30,7 @@ def main():
     # ----------------------------
     # GENERACIONES
     target = [1,0,0,1,1,0,0,1]
-    model = genetic.DNA(target = target, mutation_rate = 0.5, n_individuals = 20, n_selection = 10, n_generation = 50, variation_rate=0.005, verbose = True)
+    model = genetic.DNA(target = target, mutation_rate = 0.8, n_individuals = 30, n_selection = 15, n_generation = 70, variation_rate=0.08, verbose = True)
     model.runGeneticAlgorithm()
     # ----------------------------
     # NEURAL

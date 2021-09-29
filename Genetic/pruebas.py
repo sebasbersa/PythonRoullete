@@ -1,7 +1,9 @@
-import numpy as np
-import random
+lista = [0,2,3,3,3,4,5,6,765,4,3,2,5,6,3,2,5,6,34,22,5]
+print(len(lista))
+lista = lista[-21:-1]
+print(lista)
+print(len(lista))
 
-print(random.randint(-9,9))
 
 # np.random.seed(1)
 # matriz = np.random.random((2,3))
